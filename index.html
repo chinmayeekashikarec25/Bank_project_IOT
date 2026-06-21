@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Bank Counter Dashboard</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:#eef2f7;
+        }
+
+        .header{
+            background:#003366;
+            color:white;
+            padding:20px;
+            text-align:center;
+        }
+
+        .header h1{
+            font-size:35px;
+        }
+
+        .dashboard{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:20px;
+            padding:30px;
+            max-width:1000px;
+            margin:auto;
+        }
+
+        .card{
+            background:white;
+            padding:25px;
+            border-radius:15px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+            text-align:center;
+        }
+
+        .card h2{
+            color:#003366;
+            margin-bottom:10px;
+        }
+
+        .value{
+            font-size:40px;
+            font-weight:bold;
+            color:green;
+        }
+
+        .status{
+            font-size:28px;
+            font-weight:bold;
+        }
+
+        .open{
+            color:green;
+        }
+
+        .closed{
+            color:red;
+        }
+
+        .btn{
+            display:block;
+            margin:20px auto;
+            padding:15px 30px;
+            border:none;
+            border-radius:10px;
+            background:#003366;
+            color:white;
+            font-size:20px;
+            cursor:pointer;
+        }
+
+        .btn:hover{
+            background:#0055aa;
+        }
+
+        .footer{
+            text-align:center;
+            margin-top:20px;
+            padding:15px;
+            color:#555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>🏦 Smart Bank Counter Monitoring System</h1>
+</div>
+
+<div class="dashboard">
+
+    <div class="card">
+        <h2>Total Customers</h2>
+        <div class="value" id="count">0</div>
+    </div>
+
+    <div class="card">
+        <h2>Object Status</h2>
+        <div class="status" id="objectStatus">NO CUSTOMER</div>
+    </div>
+
+    <div class="card">
+        <h2>Gate Status</h2>
+        <div class="status closed" id="gateStatus">CLOSED</div>
+    </div>
+
+    <div class="card">
+        <h2>Buzzer Status</h2>
+        <div class="status closed" id="buzzerStatus">OFF</div>
+    </div>
+
+</div>
+
+<button class="btn" onclick="customerDetected()">
+    Simulate Customer Entry
+</button>
+
+<div class="footer">
+    Developed Using Arduino + IR Sensor + Servo Motor + Buzzer
+</div>
+
+<script>
+
+let customerCount = 0;
+
+function customerDetected(){
+
+    customerCount++;
+
+    document.getElementById("count").innerHTML = customerCount;
+
+    document.getElementById("objectStatus").innerHTML = "CUSTOMER DETECTED";
+
+    document.getElementById("gateStatus").innerHTML = "OPEN";
+    document.getElementById("gateStatus").className = "status open";
+
+    document.getElementById("buzzerStatus").innerHTML = "ON";
+    document.getElementById("buzzerStatus").className = "status open";
+
+    setTimeout(() => {
+
+        document.getElementById("objectStatus").innerHTML = "NO CUSTOMER";
+
+        document.getElementById("gateStatus").innerHTML = "CLOSED";
+        document.getElementById("gateStatus").className = "status closed";
+
+        document.getElementById("buzzerStatus").innerHTML = "OFF";
+        document.getElementById("buzzerStatus").className = "status closed";
+
+    },2000);
+}
+
+</script>
+
+</body>
+</html>
